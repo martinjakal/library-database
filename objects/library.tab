@@ -20,12 +20,12 @@ CREATE TABLE lib_author
 );
 
 CREATE UNIQUE INDEX lib_author_pk_ui
-  ON lib_author (id);
+    ON lib_author (id);
 
 ALTER TABLE lib_author
 ADD CONSTRAINT lib_author_pk
-  PRIMARY KEY (id)
-  USING INDEX lib_author_pk_ui;
+    PRIMARY KEY (id)
+    USING INDEX lib_author_pk_ui;
 
 COMMENT ON TABLE  lib_author            IS 'Table of authors';
 COMMENT ON COLUMN lib_author.id         IS 'ID of the author';
@@ -51,24 +51,24 @@ CREATE TABLE lib_book
 );
 
 CREATE UNIQUE INDEX lib_book_pk_ui
-  ON lib_book (id);
+    ON lib_book (id);
 
 CREATE INDEX lib_book_author_i
-  ON lib_book (author_id);
+    ON lib_book (author_id);
 
 CREATE INDEX lib_book_title_i
-  ON lib_book (title);
+    ON lib_book (title);
 
 ALTER TABLE lib_book
 ADD CONSTRAINT lib_book_pk
-  PRIMARY KEY (id)
-  USING INDEX lib_book_pk_ui;
+    PRIMARY KEY (id)
+    USING INDEX lib_book_pk_ui;
 
 ALTER TABLE lib_book
 ADD CONSTRAINT lib_book_lib_author_id_fk
-  FOREIGN KEY (author_id)
-  REFERENCES lib_author (id)
-  ON DELETE CASCADE;
+    FOREIGN KEY (author_id)
+    REFERENCES lib_author (id)
+    ON DELETE CASCADE;
 
 COMMENT ON TABLE  lib_book           IS 'Table of books';
 COMMENT ON COLUMN lib_book.id        IS 'ID of the book';
@@ -91,25 +91,25 @@ CREATE TABLE lib_item
 );
 
 CREATE UNIQUE INDEX lib_item_pk_ui
-  ON lib_item (id);
+    ON lib_item (id);
 
 CREATE INDEX lib_item_book_id_i
-  ON lib_item (book_id);
+    ON lib_item (book_id);
 
 ALTER TABLE lib_item
 ADD CONSTRAINT lib_item_pk
-  PRIMARY KEY (id)
-  USING INDEX lib_item_pk_ui;
+    PRIMARY KEY (id)
+    USING INDEX lib_item_pk_ui;
 
 ALTER TABLE lib_item
 ADD CONSTRAINT lib_item_lib_book_id_fk
-  FOREIGN KEY (book_id)
-  REFERENCES lib_book (id)
-  ON DELETE CASCADE;
+    FOREIGN KEY (book_id)
+    REFERENCES lib_book (id)
+    ON DELETE CASCADE;
 
 ALTER TABLE lib_item
 ADD CONSTRAINT lib_item_available_ck
-  CHECK (available IN ('YES', 'NO'));
+    CHECK (available IN ('YES', 'NO'));
 
 COMMENT ON TABLE  lib_item           IS 'Table of items for borrow';
 COMMENT ON COLUMN lib_item.id        IS 'ID of the item';
@@ -131,12 +131,12 @@ CREATE TABLE lib_customer
 );
 
 CREATE UNIQUE INDEX lib_customer_pk_ui
-  ON lib_customer (id);
+    ON lib_customer (id);
 
 ALTER TABLE lib_customer
 ADD CONSTRAINT lib_customer_pk
-  PRIMARY KEY (id)
-  USING INDEX lib_customer_pk_ui;
+    PRIMARY KEY (id)
+    USING INDEX lib_customer_pk_ui;
 
 COMMENT ON TABLE  lib_customer            IS 'Table of customers';
 COMMENT ON COLUMN lib_customer.id         IS 'ID of the customer';
@@ -160,25 +160,25 @@ CREATE TABLE lib_card
 );
 
 CREATE UNIQUE INDEX lib_card_pk_ui
-  ON lib_card (id);
+    ON lib_card (id);
 
 CREATE INDEX lib_card_customer_id_i
-  ON lib_card (customer_id);
+    ON lib_card (customer_id);
 
 ALTER TABLE lib_card
 ADD CONSTRAINT lib_card_pk
-  PRIMARY KEY (id)
-  USING INDEX lib_card_pk_ui;
+    PRIMARY KEY (id)
+    USING INDEX lib_card_pk_ui;
 
 ALTER TABLE lib_card
 ADD CONSTRAINT lib_card_lib_customer_id_fk
-  FOREIGN KEY (customer_id)
-  REFERENCES lib_customer (id)
-  ON DELETE CASCADE;
+    FOREIGN KEY (customer_id)
+    REFERENCES lib_customer (id)
+    ON DELETE CASCADE;
 
 ALTER TABLE lib_card
 ADD CONSTRAINT lib_card_status_ck
-  CHECK (status IN (0, 1, 2));
+    CHECK (status IN (0, 1, 2));
 
 COMMENT ON TABLE  lib_card                   IS 'Table of cards';
 COMMENT ON COLUMN lib_card.id                IS 'ID of the card';
@@ -201,25 +201,25 @@ CREATE TABLE lib_payment
 );
 
 CREATE UNIQUE INDEX lib_payment_pk_ui
-  ON lib_payment (id);
+    ON lib_payment (id);
 
 CREATE INDEX lib_payment_customer_id_i
-  ON lib_payment (customer_id);
+    ON lib_payment (customer_id);
 
 ALTER TABLE lib_payment
 ADD CONSTRAINT lib_payment_pk
-  PRIMARY KEY (id)
-  USING INDEX lib_payment_pk_ui;
+    PRIMARY KEY (id)
+    USING INDEX lib_payment_pk_ui;
 
 ALTER TABLE lib_payment
 ADD CONSTRAINT lib_payment_lib_customer_id_fk
-  FOREIGN KEY (customer_id)
-  REFERENCES lib_customer (id)
-  ON DELETE CASCADE;
+    FOREIGN KEY (customer_id)
+    REFERENCES lib_customer (id)
+    ON DELETE CASCADE;
 
 ALTER TABLE lib_payment
 ADD CONSTRAINT lib_payment_type_ck
-  CHECK (type IN ('DEPOSIT', 'WITHDRAW', 'CARD', 'DAMAGE', 'LATE'));
+    CHECK (type IN ('DEPOSIT', 'WITHDRAW', 'CARD', 'DAMAGE', 'LATE'));
 
 COMMENT ON TABLE  lib_payment              IS 'Table of payments';
 COMMENT ON COLUMN lib_payment.id           IS 'ID of the payment';
@@ -243,30 +243,30 @@ CREATE TABLE lib_borrow
 );
 
 CREATE UNIQUE INDEX lib_borrow_pk_ui
-  ON lib_borrow (id);
+    ON lib_borrow (id);
 
 CREATE INDEX lib_borrow_item_id_i
-  ON lib_borrow (item_id);
+    ON lib_borrow (item_id);
 
 CREATE INDEX lib_borrow_card_id_i
-  ON lib_borrow (card_id);
+    ON lib_borrow (card_id);
 
 ALTER TABLE lib_borrow
 ADD CONSTRAINT lib_borrow_pk
-  PRIMARY KEY (id)
-  USING INDEX lib_borrow_pk_ui;
+    PRIMARY KEY (id)
+    USING INDEX lib_borrow_pk_ui;
 
 ALTER TABLE lib_borrow
 ADD CONSTRAINT lib_borrow_lib_item_id_fk
-  FOREIGN KEY (item_id)
-  REFERENCES lib_item (id)
-  ON DELETE CASCADE;
+    FOREIGN KEY (item_id)
+    REFERENCES lib_item (id)
+    ON DELETE CASCADE;
 
 ALTER TABLE lib_borrow
 ADD CONSTRAINT lib_borrow_lib_card_id_fk
-  FOREIGN KEY (card_id)
-  REFERENCES lib_card (id)
-  ON DELETE CASCADE;
+    FOREIGN KEY (card_id)
+    REFERENCES lib_card (id)
+    ON DELETE CASCADE;
 
 COMMENT ON TABLE  lib_borrow             IS 'Table of borrowed books';
 COMMENT ON COLUMN lib_borrow.id          IS 'ID of the borrow';
@@ -289,30 +289,30 @@ CREATE TABLE lib_borrow_history
 );
 
 CREATE UNIQUE INDEX lib_borrow_h_pk_ui
-  ON lib_borrow_history (id);
+    ON lib_borrow_history (id);
 
 CREATE INDEX lib_borrow_h_item_id_i
-  ON lib_borrow_history (item_id);
+    ON lib_borrow_history (item_id);
 
 CREATE INDEX lib_borrow_h_card_id_i
-  ON lib_borrow_history (card_id);
+    ON lib_borrow_history (card_id);
 
 ALTER TABLE lib_borrow_history
 ADD CONSTRAINT lib_borrow_h_pk
-  PRIMARY KEY (id)
-  USING INDEX lib_borrow_h_pk_ui;
+    PRIMARY KEY (id)
+    USING INDEX lib_borrow_h_pk_ui;
 
 ALTER TABLE lib_borrow_history
 ADD CONSTRAINT lib_borrow_h_lib_item_id_fk
-  FOREIGN KEY (item_id)
-  REFERENCES lib_item (id)
-  ON DELETE CASCADE;
+    FOREIGN KEY (item_id)
+    REFERENCES lib_item (id)
+    ON DELETE CASCADE;
 
 ALTER TABLE lib_borrow_history
 ADD CONSTRAINT lib_borrow_h_lib_card_id_fk
-  FOREIGN KEY (card_id)
-  REFERENCES lib_card (id)
-  ON DELETE CASCADE;
+    FOREIGN KEY (card_id)
+    REFERENCES lib_card (id)
+    ON DELETE CASCADE;
 
 COMMENT ON TABLE  lib_borrow_history             IS 'Table of borrowed books';
 COMMENT ON COLUMN lib_borrow_history.id          IS 'ID of the borrow';
